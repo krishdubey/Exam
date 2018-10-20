@@ -1,0 +1,49 @@
+
+<html>
+<head>
+<script src="https://unpkg.com/@reactivex/rxjs@5.3.0/dist/global/Rx.js"></script>
+
+<script>
+
+    function testingKey(event) {
+
+        var promise = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(event.key)
+            }, 1000)
+        });
+        var obs = Rx.Observable.fromPromise(promise)
+            .filter(obs => (/\s/g.test(obs) || /[-!$%^&*()_+|~=`{}\[\]:\/;<>?,.@#]/.test(obs)))
+            .subscribe(result => {
+                if (result) {
+                    console.log("spcl char:" + result);
+                }
+
+            });
+
+        var obs = Rx.Observable.fromPromise(promise)
+            .filter(obs => (/[1-9]/g.test(obs)))
+            .subscribe(result => {
+                if (result) {
+                    console.log("Numeric:" + result);
+                }
+
+            });
+
+        var obs = Rx.Observable.fromPromise(promise)
+            .filter(obs => !(/\s/g.test(obs) || /[-!$%^&*()_+|~=`{}\[\]:\/;<>?,.@#]/.test(obs)) && !(/[1-9]/g.test(obs)))
+            .subscribe(result => {
+                if (result) {
+                    console.log("alphabet:" + result);
+                }
+
+            });
+    }
+
+</script>
+    </head>
+<body>
+<div>Enter The Value</div>
+    <input type='text' onKeyPress='testingKey(event)' />
+    </body>
+</html>

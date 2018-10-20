@@ -1,0 +1,40 @@
+<html>
+  <head>
+      <title></title>
+  </head>  
+
+  <body>
+      
+      <script src="https://unpkg.com/@reactivex/rxjs@5.3.0/dist/global/Rx.js"></script>
+  <script>
+     
+      
+  var observable = Rx.Observable.interval(1000);
+
+  observable
+  .filter(function(value){
+	  for(var counter = 0; counter <= 100; counter++){
+		  var notPrime = false;
+		  for(var i = 2; i <= counter; i++)
+		  if(counter%i===0 && i!==counter){
+            notPrime = true;
+			}
+		}
+		if(notPrime === false)
+      return counter;
+	  
+  })
+
+  .subscribe({
+      next : function(value){
+         console.log(value); 
+      },
+      error: function(error)
+      {
+          console.log('Error:',error);
+      }
+   });
+  
+    </script>
+    </body>
+</html>
